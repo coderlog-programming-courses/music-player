@@ -131,5 +131,9 @@ dmypy.json
 datebase.db/
 =======
 
+<<<<<<< HEAD
 db.din
+>>>>>>> origin/main
+=======
+db.bin
 >>>>>>> origin/main
