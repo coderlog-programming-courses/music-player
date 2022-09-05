@@ -127,4 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+<<<<<<< HEAD
 datebase.db/
+=======
+
+db.din
+>>>>>>> origin/main
