@@ -18,7 +18,7 @@ pip install -r b.txt
 ____
 В случае добавления своей библиотеки зафризить её.
 ```
-pip freeze > b.txt
+pip freeze > requirements.txt
 ```
 ____
 Начать работу.
