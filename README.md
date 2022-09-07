@@ -13,12 +13,12 @@ source venv/bin/activate
 ____
 Установить библиотеки.
 ```
-pip install -r b.txt
+pip install -r requirements.txt
 ```
 ____
 В случае добавления своей библиотеки зафризить её.
 ```
-pip freeze > b.txt
+pip freeze > requirements.txt
 ```
 ____
 Начать работу.
