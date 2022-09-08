@@ -142,4 +142,13 @@ db.din
 >>>>>>> origin/main
 =======
 db.bin
+<<<<<<< HEAD
 >>>>>>> origin/main
+=======
+
+*.swl
+*.swp
+*.swm
+*.swo
+*.swn
+>>>>>>> origin
