@@ -131,6 +131,12 @@ dmypy.json
 datebase.db/
 =======
 
+.playlist.py.swl
+.playlist.py.swm
+.playlist.py.swn
+.playlist.py.swo
+.playlist.py.swp 
+
 <<<<<<< HEAD
 db.din
 >>>>>>> origin/main
