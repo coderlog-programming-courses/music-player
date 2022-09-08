@@ -129,3 +129,9 @@ dmypy.json
 .pyre/
 
 db.bin
+
+*.swl
+*.swp
+*.swm
+*.swo
+*.swn
