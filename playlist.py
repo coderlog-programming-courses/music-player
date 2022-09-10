@@ -9,6 +9,7 @@ def adding_a_playlist(add_name_playlist):
         cursor.execute('INSERT INTO playlists (playlist) VALUES ("{}")'.format(add_name_playlist))
         connection.commit()
         connection.close()
+        cursor.close()
         return "Add a playlist"
          
 def delete_a_playlist(delete_id_playlist):
@@ -22,7 +23,8 @@ def delete_a_playlist(delete_id_playlist):
         cursor.execute('DELETE FROM musics WHERE id = "{}"'.format(playlist_id[i][1]))
     cursor.execute('DELETE FROM connect WHERE id_playlist = "{}"'.format(delete_id_playlist))
     connection.commit()
-    connection.close() 
+    connection.close()
+    cursor.close()
 
 def playlist_output_in_the_form_of_a_letter(id_playlist):
     the_name_playlist_and_all_paths_music_list = []
@@ -48,4 +50,4 @@ def playlist_output_in_the_form_of_a_letter(id_playlist):
     the_name_playlist_and_all_paths_music_list = the_name_playlist_and_all_paths_music_list.replace('"', '')
     connection.commit()
     connection.close()  
-
+    cursor.close()
