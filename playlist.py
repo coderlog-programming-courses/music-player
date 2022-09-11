@@ -50,4 +50,5 @@ def playlist_output_in_the_form_of_a_letter(id_playlist):
     the_name_playlist_and_all_paths_music_list = the_name_playlist_and_all_paths_music_list.replace('"', '')
     connection.commit()
     cursor.close()
-    connection.close()  
+    connection.close() 
+    return the_name_playlist_and_all_paths_music_list
