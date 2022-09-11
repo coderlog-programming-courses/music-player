@@ -1,6 +1,8 @@
 import sqlite3
 import os.path
 
+
+
 def datebase():
     connection = sqlite3.connect('db.bin')
     cursor = connection.cursor()
