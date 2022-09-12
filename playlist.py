@@ -37,7 +37,7 @@ def playlist_output_in_the_form_of_a_letter(id_playlist):
     name_playlist = name_playlist.replace(")","")
     name_playlist = name_playlist.replace("]", "")
     name_playlist = name_playlist.replace("[", "") 
-    name_playlist = name_playlist.replace(",", "")      
+    name_playlist = name_playlist.replace(",", "")   
     cursor.execute("""SELECT id, music FROM musics, connect WHERE id_playlist = "{}" AND id = id_music""".format(id_playlist))
     all_music = cursor.fetchall()
     all_music = str(all_music)
@@ -52,3 +52,12 @@ def playlist_output_in_the_form_of_a_letter(id_playlist):
     cursor.close()
     connection.close() 
     return the_name_playlist_and_all_paths_music_list
+
+
+def renaming_the_playlist(id_playlist, new_name_playlist):
+    connection = sqlite3.connect('db.bin')
+    cursor = connection.cursor()    
+    cursor.execute('UPDATE playlists SET playlist = "{}" WHERE id = "{}"'.format(new_name_playlist, id_playlist))
+    connection.commit()
+    cursor.close()
+    connection.close()
