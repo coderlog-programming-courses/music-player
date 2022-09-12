@@ -1,7 +1,5 @@
 import sqlite3
 
-import sqlite3
-
 def add_music():
 
     path_to_music = input()
