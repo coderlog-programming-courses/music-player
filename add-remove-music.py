@@ -10,4 +10,13 @@ def add_music():
     connection.commit()
     connection.close()
 
-add_music()
+def delete_music():
+
+    id = input()
+    connection = sqlite3.connect('db.bin')
+    cursor = connection.cursor()    
+    cursor.execute('DELETE FROM musics WHERE id = "{}"'.format(id))
+    cursor.execute('')
+    cursor.close()
+    connection.commit()
+    connection.close()
