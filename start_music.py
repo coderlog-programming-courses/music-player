@@ -1,15 +1,24 @@
+import wave
+from pygame import mixer
 import sqlite3
 import os.path
-from playsound import playsound
+from db_worker import wave_music
 
-def play_music():
-    id = input()
-    connection = sqlite3 .connect('db.bin')
-    cursor = connection.cursor()
-    id_music = cursor.execute('SELECT music FROM musics WHERE id = {}'.format(id))
-    path_music = id_music.fetchone()
-    
-    playsound("{}".format(path_music[0]))
+id = input()
+
+def pause():
+        v = input()
+        if v == "q":
+                mixer.music.pause()
+
+def play(id):
+        
+        mixer.init()
+        mixer.music.load("{}".format(wave_music(id)))
+        mixer.music.play()
+        while True:
+                pause()
 
 
-play_music()
+
+play(id)
