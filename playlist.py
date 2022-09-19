@@ -1,32 +1,14 @@
-import sqlite3 # Імпортує бібліотеку sqlite3 
+from db_worker import adding_a_playlist_db, delete_a_playlist_db, renaming_the_playlist_db
+import sqlite3
 
 def adding_a_playlist(add_name_playlist): # Робить функцію 
 
     if add_name_playlist == '': # Якщо строка пуста то... 
         return "Error" # ...помилка
     else: # Інакше
-        connection = sqlite3.connect('db.bin') # Підключення до бази даних (sqlite3)
-        cursor = connection.cursor() # Робить курсор
-        cursor.execute('INSERT INTO playlists (playlist) VALUES ("{}")'.format(add_name_playlist)) # Записує до бази даних (sqlite3) ім'я плейлиста
-        connection.commit() # Зберігає те що ми записали
-        cursor.close() # Закриває запис
-        connection.close() # Відключяється від бази даних (sqlite3)
+        adding_a_playlist_db(add_name_playlist) # Додаю функцію яка підключається до бази даних (sqlite3) 
         return "Add a playlist" # Каже що все добре та плейлист додався
          
-def delete_a_playlist(delete_id_playlist): # Робить функцію
-
-    music_list = [] # Робить пустий список
-    connection = sqlite3.connect('db.bin') # Підключення до бази даних (sqlite3)
-    cursor = connection.cursor() # Робить відкриття запису
-    cursor.execute('DELETE FROM playlists WHERE id = "{}"'.format(delete_id_playlist)) # Видаляє з бази даних (sqlite3) плейлист по айді
-    cursor.execute('SELECT * FROM connect WHERE id_playlist = "{}"'.format(delete_id_playlist)) # Вибірає айді плейлиста
-    playlist_id = cursor.fetchall() # Виводить це в форматі текста
-    for i in range(len(playlist_id)): # Проходиться по тому що ми взяли з таблиці
-        cursor.execute('DELETE FROM musics WHERE id = "{}"'.format(playlist_id[i][1])) # Видаляє плейлист
-    cursor.execute('DELETE FROM connect WHERE id_playlist = "{}"'.format(delete_id_playlist)) # Видаляє все що єсть в плейлисті
-    connection.commit() # Записуе все до бази даних (sqlite3)
-    cursor.close() # Закриває запис
-    connection.close() # Закриває підключення до бази даних (sqlite3)
 
 def playlist_output_in_the_form_of_a_letter(id_playlist): # Робить функцію
 
@@ -50,12 +32,5 @@ def playlist_output_in_the_form_of_a_letter(id_playlist): # Робить фун�
     connection.close() # Відключаєтьсяч від бази даних (sqlite3)
     return the_name_playlist_and_all_paths_music_list # Виводить список в який ми додали дві змінні з текстом
 
-
-def renaming_the_playlist(id_playlist, new_name_playlist): # Робить функцію
-    
-    connection = sqlite3.connect('db.bin') # Підключається до бази даних (sqlite3)
-    cursor = connection.cursor() # Відкриває курсор
-    cursor.execute('UPDATE playlists SET playlist = "{}" WHERE id = "{}"'.format(new_name_playlist, id_playlist)) # Переіменовує плейлист
-    connection.commit() # Записує в базу даних (sqlite3)
-    cursor.close() # Закриває курсор
-    connection.close() # Відключається від бази даних (sqlite3)
+renaming_the_playlist_db() # Додає функцію з бази даних (sqlite3) 
+delete_a_playlist_db() # Додає функцію з бази даних (sqlite3) 
