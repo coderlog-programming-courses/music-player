@@ -127,11 +127,21 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
+<<<<<<< HEAD
+datebase.db/
+=======
+<<<<<<< HEAD
+db.din
+>>>>>>> origin/main
+=======
 db.bin
+<<<<<<< HEAD
+>>>>>>> origin/main
+=======
 
 *.swl
 *.swp
 *.swm
 *.swo
 *.swn
+>>>>>>> origin
