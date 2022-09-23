@@ -78,3 +78,16 @@ def renaming_the_playlist_db(id_playlist, new_name_playlist): # Робить ф�
     
     cursor.close() # Закриває курсор
     connection.close() # Відключається від бази даних (sqlite3)
+    
+    
+def output_of_all_playlists(): # Робить функцію 
+    
+    connection = sqlite3.connect('db.bin') # Підключається до бази даних (sqlite3)
+    cursor = connection.cursor() # Відкриває курсор
+    
+    cursor.execute('SELECT * FROM playlists') # Бере всі плейлисти з таблиці та виводить
+    output_playlist = cursor.fetchall() # Записує в зміну те що ми взяли з бази даних (sqlite3)
+    
+    cursor.close() # Закриває курсор
+    connection.close() # Відключається від бази даних (sqlite3)
+    return output_playlist # Виводить зміну output_playlist в якій те що ми взяли з бази даних (sqlite3)

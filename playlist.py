@@ -24,6 +24,3 @@ def playlist_output_in_the_form_of_a_letter(id_playlist): # Робить фун�
     the_name_playlist_and_all_paths_music_list = str(the_name_playlist_and_all_paths_music_list) # Конвертує список у строку
     the_name_playlist_and_all_paths_music_list = the_name_playlist_and_all_paths_music_list.replace("'", "").replace('"', '') # Видаляє все непотрібне
     return the_name_playlist_and_all_paths_music_list # Виводить список в який ми додали дві змінні з текстом
-print(playlist_output_in_the_form_of_a_letter(1))
-#renaming_the_playlist_db() # Додає функцію з бази даних (sqlite3) 
-#delete_a_playlist_db() # Додає функцію з бази даних (sqlite3) 
