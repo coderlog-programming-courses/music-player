@@ -1,5 +1,6 @@
 import sqlite3
 
+
 def create_datebase():
     connection = sqlite3.connect('db.bin')
     cursor = connection.cursor()
