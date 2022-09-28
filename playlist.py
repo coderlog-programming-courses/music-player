@@ -7,7 +7,7 @@ logger.add("playlist_logs.log", format="{time} | {level} | {message}", rotation=
 def adding_playlist(add_name_playlist): # Робить функцію 
       
     if add_name_playlist == '': # Якщо строка пуста то... 
-        logger.error("This function(adding_playlist) didn't worked ") # Добавляє лог який каже що функція відпрацювала  
+        logger.error("This function(adding_playlist) didn't worked ") # Добавляє лог який каже що функція не відпрацювала  
         return "Error" # ...помилка
     else: # Інакше
         adding_playlist_db(add_name_playlist) # Додаю функцію яка підключається до бази даних (sqlite3) 
