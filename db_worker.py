@@ -1,9 +1,12 @@
-import sqlite3
+import sqlite3 # Імпортує бібліотеку з базой даних (sqlite3)
+from loguru import logger # Імпортує бібліотеку з логами
+
+logger.add("database_logs.log", format="{time} | {level} | {message}", rotation="100MB") # Додає файл куди зкладаються всі логи
 
 
 def create_datebase():
-    connection = sqlite3.connect('db.bin') #Підключення до бази.
-    cursor = connection.cursor() #Підключення курсору.
+    connection = sqlite3.connect('db.bin')
+    cursor = connection.cursor()
 
     #Створити таблицю playlistsю
     cursor.execute('CREATE TABLE playlists(id INTEGER PRIMARY KEY NOT NULL, playlist TEXT NOT NULL)')
@@ -18,20 +21,22 @@ def create_datebase():
     connection.close() #Закрити підключення до бази.
     connection.close()
     
-    
-def adding_a_playlist_db(add_name_playlist):
+   
+def adding_playlist_db(add_name_playlist): # Робить функцію
     
     connection = sqlite3.connect('db.bin') # Підключення до бази даних (sqlite3)
-    cursor = connection.cursor() # Робить курсор
-    
+    cursor = connection.cursor() # Робить курсор  
+      
     cursor.execute('INSERT INTO playlists (playlist) VALUES ("{}")'.format(add_name_playlist)) # Записує до бази даних (sqlite3) ім'я плейлиста
-    connection.commit() # Зберігає те що ми записали
+    connection.commit() # Зберігає те що ми записали    
     
     cursor.close() # Закриває запис
     connection.close() # Відключяється від бази даних (sqlite3)
     
+    logger.info("This function(adding_playlist_db) worked ") # Добавляє лог який каже що функція відпрацювала
     
-def delete_a_playlist_db(delete_id_playlist):
+    
+def delete_playlist_db(delete_id_playlist):
     
     connection = sqlite3.connect('db.bin') # Підключення до бази даних (sqlite3)
     cursor = connection.cursor() # Робить відкриття запису
@@ -47,8 +52,10 @@ def delete_a_playlist_db(delete_id_playlist):
     cursor.close() # Закриває запис
     connection.close() # Закриває підключення до бази даних (sqlite3)
     
+    logger.info("This function(delete_playlist_db) worked ") # Добавляє лог який каже що функція відпрацювала
     
-def playlist_output_in_the_form_of_a_letter_db1(id_playlist): # Робить функцію
+   
+def playlist_output_form_letter_db1(id_playlist): # Робить функцію
     
     connection = sqlite3.connect('db.bin') # Підключення до бази даних (sqlite3)
     cursor = connection.cursor() # Робить курсор
@@ -59,9 +66,13 @@ def playlist_output_in_the_form_of_a_letter_db1(id_playlist): # Робить ф�
     
     cursor.close() # Закриває курсор
     connection.close() # Відключаєтьсяч від бази даних (sqlite3)
-    return name_playlist
     
-def playlist_output_in_the_form_of_a_letter_db2(id_playlist): # Робить функцію
+    logger.info("This function(playlist_output_form_letter_db1) worked ") # Добавляє лог який каже що функція відпрацювала
+    
+    return name_playlist
+
+   
+def playlist_output_form_letter_db2(id_playlist): # Робить функцію
     
     connection = sqlite3.connect('db.bin') # Підключення до бази даних (sqlite3)
     cursor = connection.cursor() # Робить курсор
@@ -72,9 +83,13 @@ def playlist_output_in_the_form_of_a_letter_db2(id_playlist): # Робить ф�
     
     cursor.close() # Закриває курсор
     connection.close() # Відключаєтьсяч від бази даних (sqlite3)
-    return all_music
     
-def renaming_the_playlist_db(id_playlist, new_name_playlist): # Робить функцію
+    logger.info("This function(playlist_output_form_letter_db2) worked ") # Добавляє лог який каже що функція відпрацювала
+    
+    return all_music
+
+   
+def renaming_playlist_db(id_playlist, new_name_playlist): # Робить функцію
     
     connection = sqlite3.connect('db.bin') # Підключається до бази даних (sqlite3)
     cursor = connection.cursor() # Відкриває курсор
@@ -85,8 +100,10 @@ def renaming_the_playlist_db(id_playlist, new_name_playlist): # Робить ф�
     cursor.close() # Закриває курсор
     connection.close() # Відключається від бази даних (sqlite3)
     
+    logger.info("This function(renaming_playlist_db) worked ") # Добавляє лог який каже що функція відпрацювала
     
-def output_of_all_playlists(): # Робить функцію 
+   
+def output_all_playlists(): # Робить функцію 
     
     connection = sqlite3.connect('db.bin') # Підключається до бази даних (sqlite3)
     cursor = connection.cursor() # Відкриває курсор
@@ -96,4 +113,8 @@ def output_of_all_playlists(): # Робить функцію
     
     cursor.close() # Закриває курсор
     connection.close() # Відключається від бази даних (sqlite3)
+    
+    logger.info("This function(output_of_all_playlists) worked ") # Добавляє лог який каже що функція відпрацювала
+    
     return output_playlist # Виводить зміну output_playlist в якій те що ми взяли з бази даних (sqlite3)
+
