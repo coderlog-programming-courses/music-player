@@ -11,6 +11,7 @@ def create_datebase():
     cursor.execute('CREATE TABLE connect(id_playlist INTEGER NOT NULL, id_music INTEGER NOT NULL)')
     #Створити таблицю musics.
     cursor.execute('CREATE TABLE musics(id INTEGER PRIMARY KEY, music TEXT NOT NULL)')
+    cursor.execute('INSERT INTO playlists (playlist) VALUES ("main")')
     connection.commit() #Затвердити зміни у бд.
 
     cursor.close() #Закртити курсос.
