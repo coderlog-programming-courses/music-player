@@ -112,3 +112,4 @@ def output_all_playlists(): # Робить функцію
     logger.info("This function(output_of_all_playlists) worked ") # Добавляє лог який каже що функція відпрацювала
     
     return output_playlist # Виводить зміну output_playlist в якій те що ми взяли з бази даних (sqlite3)
+
