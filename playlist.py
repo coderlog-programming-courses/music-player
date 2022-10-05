@@ -1,7 +1,7 @@
 from db_worker import adding_playlist_db, delete_playlist_db, renaming_playlist_db, playlist_output_form_letter_db1, playlist_output_form_letter_db2, output_all_playlists # Імпортує функції з базами даних (sqlite3)
 from loguru import logger # Імпортує бібліотеку з логами
 
-logger.add("playlist_logs.log", format="{time} | {level} | {message}", rotation="100MB") # Додає файл куди зкладаються всі логи
+logger.add("logs/player.log", format="{time} | {level} | {message}", rotation="10MB") # Додає файл куди зкладаються всі логи
 
 
 def adding_playlist(add_name_playlist): # Робить функцію 
@@ -28,6 +28,7 @@ def playlist_output_form_letter(id_playlist): # Робить функцію
     name_playlist_all_paths_music_list.append(all_music) # Додає всю музику в список
     name_playlist_all_paths_music_list = str(name_playlist_all_paths_music_list) # Конвертує список у строку
     name_playlist_all_paths_music_list = name_playlist_all_paths_music_list.replace("'", "").replace('"', '') # Видаляє все непотрібне
+    name_playlist_all_paths_music_list = list(name_playlist_all_paths_music_list)
     logger.info("This function(playlist_output_form_letter) worked ") # Добавляє лог який каже що функція відпрацювала
     return name_playlist_all_paths_music_list # Виводить список в який ми додали дві змінні з текстом
 
