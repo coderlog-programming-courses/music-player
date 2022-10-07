@@ -28,6 +28,7 @@ def playlist_output_form_letter(id_playlist): # Робить функцію
     name_playlist_all_paths_music_list.append(all_music) # Додає всю музику в список
     name_playlist_all_paths_music_list = str(name_playlist_all_paths_music_list) # Конвертує список у строку
     name_playlist_all_paths_music_list = name_playlist_all_paths_music_list.replace("'", "").replace('"', '') # Видаляє все непотрібне
+    name_playlist_all_paths_music_list = list(name_playlist_all_paths_music_list)
     logger.info("This function(playlist_output_form_letter) worked ") # Добавляє лог який каже що функція відпрацювала
     return name_playlist_all_paths_music_list # Виводить список в який ми додали дві змінні з текстом
 
