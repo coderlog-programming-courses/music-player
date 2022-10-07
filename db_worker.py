@@ -63,7 +63,7 @@ def playlist_output_form_letter_db1(id_playlist): # Робить функцію
     connection.close() # Відключаєтьсяч від бази даних (sqlite3)
     
     logger.info("This function(playlist_output_form_letter_db1) worked ") # Добавляє лог який каже що функція відпрацювала
-    
+    name_playlist = list(name_playlist)
     return name_playlist
 
    
@@ -80,7 +80,7 @@ def playlist_output_form_letter_db2(id_playlist): # Робить функцію
     connection.close() # Відключаєтьсяч від бази даних (sqlite3)
     
     logger.info("This function(playlist_output_form_letter_db2) worked ") # Добавляє лог який каже що функція відпрацювала
-    
+    all_music = list(all_music)
     return all_music
 
    
