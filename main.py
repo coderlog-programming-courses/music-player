@@ -1,14 +1,15 @@
 from email.mime import application
 import os.path, sys
 from PyQt5 import QtWidgets, QtCore, QtGui
-from db_worker import create_datebase, output_of_all_playlists
-from playlist import playlist_output_in_the_form_of_a_letter
+from db_worker import create_datebase, output_all_playlists
+from playlist import playlist_output_form_letter
+from cover_art_music_author import author_photo_name_music
 from window import Ui_MainWindow
 from loguru import logger
 from functools import partial
 
 
-logger.add('python.log', format='{time} {level} {message}')
+logger.add('logs/player.log', format='{time} {level} {message}', rotation="10MB")
 
 
 if os.path.exists('db.bin') != True: #Якщо файлу бази данних немає у папці
@@ -25,9 +26,12 @@ class Window(QtWidgets.QMainWindow):
         self.ui.playlist_button.clicked.connect(self.playlist_button_cliked)
         self.ui.playlist_frame.setVisible(False)
         self.past_playlist = None
-        Window.get_music(self, 1)
+        #Window.get_music(self, 1)
+        logger.info('start window')
 
     def music_button_cliked(self):
+        logger.info('music button cliked')
+
         self.ui.music_frame.setVisible(True)
         self.ui.playlist_frame.setVisible(False)
 
@@ -42,6 +46,8 @@ class Window(QtWidgets.QMainWindow):
         self.ui.playlist_button.setIconSize(QtCore.QSize(100, 30))
 
     def playlist_button_cliked(self):
+        logger.info('playlist button cliked')
+
         self.ui.music_frame.setVisible(False)
         self.ui.playlist_frame.setVisible(True)
 
@@ -58,6 +64,8 @@ class Window(QtWidgets.QMainWindow):
         self.get_playlists()
     
     def playlist_label_cliked(self, playlist_id, QMouseEvent):
+        logger.info('change playlist')
+
         if self.past_playlist == None:
             self.past_playlist = playlist_id
             for i in range(len(self.list_playlists)):
@@ -80,7 +88,7 @@ class Window(QtWidgets.QMainWindow):
         for i in reversed(range(self.ui.playlist_frame_layout.count())): 
             self.ui.playlist_frame_layout.itemAt(i).widget().setParent(None)
 
-        playlists = output_of_all_playlists()[1:]
+        playlists = output_all_playlists()[1:]
         self.list_playlists = []
 
         for i in range(len(playlists)):
@@ -108,6 +116,7 @@ class Window(QtWidgets.QMainWindow):
         self.space_frame.setLineWidth(0)
         self.space_frame.setObjectName("space_frame_in_playlist")
         self.ui.playlist_frame_layout.addWidget(self.space_frame)
+    
 
 
 app = QtWidgets.QApplication([])
