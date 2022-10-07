@@ -128,7 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-db.din
+db.bin
 
 *.swl
 *.swp
