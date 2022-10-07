@@ -1,7 +1,7 @@
 import sqlite3 # Імпортує бібліотеку з базой даних (sqlite3)
 from loguru import logger # Імпортує бібліотеку з логами
 
-logger.add("database_logs.log", format="{time} | {level} | {message}", rotation="100MB") # Додає файл куди зкладаються всі логи
+logger.add("logs/player.log", format="{time} | {level} | {message}", rotation="10MB") # Додає файл куди зкладаються всі логи
 
 
 def create_datebase():
