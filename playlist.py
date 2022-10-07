@@ -18,17 +18,14 @@ def adding_playlist(add_name_playlist): # Робить функцію
 def playlist_output_form_letter(id_playlist): # Робить функцію
 
     name_playlist_all_paths_music_list = [] # Робить пустий список у якому буде назва плейлиста потім уся музика та путь до неї яка єсть в плейлисті
-    name_playlist = playlist_output_form_letter_db1(id_playlist)
-    name_playlist = str(name_playlist) # Робить з 'name_playlist' строку
-    name_playlist = name_playlist.replace("(", "").replace(")","").replace("]", "").replace("[", "").replace(",", "")   # Видаляє з зміної яку ми взяли з бази даних (sqlite3) все непотрібне 
-    all_music = playlist_output_form_letter_db2(id_playlist)
-    all_music = str(all_music) # Робить із зміної 'all_music' строку
-    all_music = all_music.replace("]", "").replace("[", "")  # Видаляє все непотрібне
-    name_playlist_all_paths_music_list.append(name_playlist) # Додає у пустий список ім'я плейлиста і все що ми з ним зробили раніше
-    name_playlist_all_paths_music_list.append(all_music) # Додає всю музику в список
-    name_playlist_all_paths_music_list = str(name_playlist_all_paths_music_list) # Конвертує список у строку
-    name_playlist_all_paths_music_list = name_playlist_all_paths_music_list.replace("'", "").replace('"', '') # Видаляє все непотрібне
-    name_playlist_all_paths_music_list = list(name_playlist_all_paths_music_list)
+    all_music = playlist_output_form_letter_db2(id_playlist)     
+    name_playlist = playlist_output_form_letter_db1(id_playlist)   
+    for i in range(len(name_playlist)):
+        name_playlist = name_playlist[i][i]
+    name_playlist_all_paths_music_list.append(name_playlist) # Додає всю музику в список        
+    name_playlist_all_paths_music_list.append(all_music) # Додає у пустий список ім'я плейлиста і все що ми з ним зробили раніше
+
     logger.info("This function(playlist_output_form_letter) worked ") # Добавляє лог який каже що функція відпрацювала
     return name_playlist_all_paths_music_list # Виводить список в який ми додали дві змінні з текстом
 
+print(playlist_output_form_letter(2))
