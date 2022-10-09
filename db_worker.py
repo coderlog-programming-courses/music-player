@@ -4,6 +4,7 @@ from loguru import logger # Імпортує бібліотеку з логам�
 logger.add("logs/player.log", format="{time} | {level} | {message}", rotation="10MB") # Додає файл куди зкладаються всі логи
 
 
+
 def create_datebase():
 
     connection = sqlite3.connect('db.bin')
