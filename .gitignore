@@ -137,3 +137,4 @@ db.bin
 *.swn
 
 *.ui
+ui_window.py
