@@ -38,12 +38,12 @@ class Window(QtWidgets.QMainWindow):
         self.ui.playlist_frame.setVisible(False)
 
         music_icon = QtGui.QIcon()
-        music_icon.addPixmap(QtGui.QPixmap("button_image/active_button_musics.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        music_icon.addPixmap(QtGui.QPixmap("image/active_button_musics.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.ui.music_button.setIcon(music_icon)
         self.ui.music_button.setIconSize(QtCore.QSize(100, 30))
 
         playlist_icon = QtGui.QIcon()
-        playlist_icon.addPixmap(QtGui.QPixmap("button_image/deactive_button_playlists.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        playlist_icon.addPixmap(QtGui.QPixmap("image/deactive_button_playlists.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.ui.playlist_button.setIcon(playlist_icon)
         self.ui.playlist_button.setIconSize(QtCore.QSize(100, 30))
 
@@ -54,12 +54,12 @@ class Window(QtWidgets.QMainWindow):
         self.ui.playlist_frame.setVisible(True)
 
         music_icon = QtGui.QIcon()
-        music_icon.addPixmap(QtGui.QPixmap("button_image/deactive_button_musics.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        music_icon.addPixmap(QtGui.QPixmap("image/deactive_button_musics.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.ui.music_button.setIcon(music_icon)
         self.ui.music_button.setIconSize(QtCore.QSize(100, 30))
 
         playlist_icon = QtGui.QIcon()
-        playlist_icon.addPixmap(QtGui.QPixmap("button_image/active_button_playlists.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        playlist_icon.addPixmap(QtGui.QPixmap("image/active_button_playlists.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.ui.playlist_button.setIcon(playlist_icon)
         self.ui.playlist_button.setIconSize(QtCore.QSize(100, 30))
 
