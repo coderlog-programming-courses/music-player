@@ -6,15 +6,20 @@ logger.add("logs/player.log", format="{time} | {level} | {message}", rotation="1
 
 
 def create_datebase():
-
     connection = sqlite3.connect('db.bin')
     cursor = connection.cursor()
 
+    #Створити таблицю playlistsю
     cursor.execute('CREATE TABLE playlists(id INTEGER PRIMARY KEY NOT NULL, playlist TEXT NOT NULL)')
+    #Створити таблицю connect.
     cursor.execute('CREATE TABLE connect(id_playlist INTEGER NOT NULL, id_music INTEGER NOT NULL)')
+    #Створити таблицю musics.
     cursor.execute('CREATE TABLE musics(id INTEGER PRIMARY KEY, music TEXT NOT NULL)')
-    connection.commit()
+    cursor.execute('INSERT INTO playlists (playlist) VALUES ("main")')
+    connection.commit() #Затвердити зміни у бд.
 
+    cursor.close() #Закртити курсос.
+    connection.close() #Закрити підключення до бази.
     connection.close()
     
    

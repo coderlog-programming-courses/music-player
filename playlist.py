@@ -27,5 +27,3 @@ def playlist_output_form_letter(id_playlist): # Робить функцію
 
     logger.info("This function(playlist_output_form_letter) worked ") # Добавляє лог який каже що функція відпрацювала
     return name_playlist_all_paths_music_list # Виводить список в який ми додали дві змінні з текстом
-
-print(playlist_output_form_letter(2))

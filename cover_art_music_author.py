@@ -12,6 +12,3 @@ def author_photo_name_music(way):
     music_name = music[dash + 2:]
     music_name = music_name.replace('.mp3', '').replace('-', '') 
     return (music_author, music_name)
-    
-    
-print(author_photo_name_music('/home/sasha/Загрузки/Егор Крид feat. Филипп Киркоров - Цвет Настроения Чёрный.mp3'))
