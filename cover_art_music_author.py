@@ -11,6 +11,7 @@ def author_photo_name_music(way):
     music_name = music[dash + 2:]
     music_name = music_name.replace('.mp3', '')
     return (music_author, music_name)
+<<<<<<< HEAD
     
     
 #print(author_photo_name_music('/home/sasha/Музика/Егор Крид feat. Филипп Киркоров - Цвет Настроения Чёрный.mp3'))
@@ -27,3 +28,5 @@ def does_file_exist():
 
 print(does_file_exist())
 #'/home/sasha/Загрузки/Егор Крид feat. Филипп Киркоров - Цвет Настроения Чёрный.mp3'
+=======
+>>>>>>> origin
