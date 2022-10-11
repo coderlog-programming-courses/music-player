@@ -113,3 +113,36 @@ def output_all_playlists(): # Робить функцію
     
     return output_playlist # Виводить зміну output_playlist в якій те що ми взяли з бази даних (sqlite3)
 
+
+def does_file_exist_db():
+    
+    connection = sqlite3.connect('db.bin') # Підключається до бази даних (sqlite3)
+    cursor = connection.cursor() # Відкриває курсор
+    
+    cursor.execute('SELECT music FROM musics') # Бере всі плейлисти з таблиці та виводить
+    output_music = cursor.fetchall() # Записує в зміну те що ми взяли з бази даних (sqlite3)
+    
+    cursor.close() # Закриває курсор
+    connection.close() # Відключається від бази даних (sqlite3)
+    
+    logger.info("This function(does_file_exist_db) worked ") # Добавляє лог який каже що функція відпрацювала
+    
+    return output_music # Виводить зміну output_music в якій те що ми взяли з бази даних (sqlite3)
+
+def delete_music_db(music):#Оголошує функцію
+
+    connection = sqlite3.connect('db.bin')#Підключення до бази даних
+    cursor = connection.cursor()#Підключення до курсору
+
+    cursor.execute('SELECT id FROM musics WHERE music = "{}"'.format(music))#Видаляє з таблиці connect id плейлиста
+    id_music = cursor.fetchall()
+    for i in range(len(id_music)):
+        id_music = id_music[i][i]
+    cursor.execute('DELETE FROM musics WHERE music = "{}"'.format(music))#Видаляє з таблиці musics id музики
+    cursor.execute('DELETE FROM connect WHERE id_music = "{}"'.format(id_music))#Видаляє з таблиці connect id музики
+    cursor.close()#Закриває курсор
+    connection.commit()#Зберігає написане
+
+    connection.close()#Закриває підключення, id_playlist, id_music
+delete_music_db('f')
+    
