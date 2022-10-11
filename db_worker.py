@@ -135,20 +135,4 @@ def does_file_exist_db():
     
     return output_music # Виводить зміну output_music в якій те що ми взяли з бази даних (sqlite3)
 
-def delete_music_db(music):#Оголошує функцію
-
-    connection = sqlite3.connect('db.bin')#Підключення до бази даних
-    cursor = connection.cursor()#Підключення до курсору
-
-    cursor.execute('SELECT id FROM musics WHERE music = "{}"'.format(music))#Видаляє з таблиці connect id плейлиста
-    id_music = cursor.fetchall()
-    for i in range(len(id_music)):
-        id_music = id_music[i][i]
-    cursor.execute('DELETE FROM musics WHERE music = "{}"'.format(music))#Видаляє з таблиці musics id музики
-    cursor.execute('DELETE FROM connect WHERE id_music = "{}"'.format(id_music))#Видаляє з таблиці connect id музики
-    cursor.close()#Закриває курсор
-    connection.commit()#Зберігає написане
-
-    connection.close()#Закриває підключення, id_playlist, id_music
-delete_music_db('f')
     
