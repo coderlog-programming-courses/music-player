@@ -98,7 +98,7 @@ class Window(QtWidgets.QMainWindow):
             for i in range(len(self.list_playlist_musics)):
                 if self.list_playlist_musics[i][0] == music_id:
                     self.list_playlist_musics[i][1].setStyleSheet('color:#FF0000;')
-                    self.list_musics[i][2].setStyleSheet('color:#FF0000;')
+                    self.list_playlist_musics[i][2].setStyleSheet('color:#FF0000;')
         else:
             for i in range(len(self.list_playlist_musics)):
                 if self.list_playlist_musics[i][0] == self.past_music[0]:
@@ -135,8 +135,11 @@ class Window(QtWidgets.QMainWindow):
                     self.list_musics[i][2].setStyleSheet('color:#7D7373;')
             for i in range(len(self.list_playlist_musics)):
                 if self.list_playlist_musics[i][0] == self.past_music[0]:
-                    self.list_playlist_musics[i][1].setStyleSheet('color:#FFFFFF;')
-                    self.list_playlist_musics[i][2].setStyleSheet('color:#7D7373;')
+                    try:
+                        self.list_playlist_musics[i][1].setStyleSheet('color:#FFFFFF;')
+                        self.list_playlist_musics[i][2].setStyleSheet('color:#7D7373;')
+                    except:
+                        pass
             self.past_music = (music_id, 'music')
             for i in range(len(self.list_musics)):
                 if self.list_musics[i][0] == music_id:
@@ -149,6 +152,9 @@ class Window(QtWidgets.QMainWindow):
         self.ui.pause_button.setVisible(False)
         self.ui.next_button.setVisible(True)
         self.ui.back_button.setVisible(True)
+
+    def back_playlist_button_cliked(self):
+        Window.get_playlists(self)
 
     def play_button_cliked(self):
         self.ui.pause_button.setVisible(True)
@@ -227,6 +233,20 @@ class Window(QtWidgets.QMainWindow):
             self.list_playlist_musics = []
         else:
             self.list_musics = []
+
+        if frame_for_music == 'playlist':
+            self.back_playlist_button = QtWidgets.QPushButton(self.ui.music_widget)
+            self.back_playlist_button.setMaximumSize(QtCore.QSize(25, 25))
+            self.back_playlist_button.setMinimumSize(QtCore.QSize(25, 25))
+            self.back_playlist_button.setText("")
+            icon = QtGui.QIcon()
+            icon.addPixmap(QtGui.QPixmap("image/back-arrow.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            self.back_playlist_button.setIcon(icon)
+            self.back_playlist_button.setIconSize(QtCore.QSize(25, 25))
+            self.back_playlist_button.setObjectName("back_playlist_button")
+
+            self.back_playlist_button.clicked.connect(self.back_playlist_button_cliked)
+            layout.addWidget(self.back_playlist_button)
 
         for i in range(len(musics)):
             frame = QtWidgets.QFrame(self.ui.music_widget)
