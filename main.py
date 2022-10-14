@@ -24,7 +24,15 @@ class Window(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
         self.ui.music_button.clicked.connect(self.music_button_cliked)
         self.ui.playlist_button.clicked.connect(self.playlist_button_cliked)
+        self.ui.play_button.clicked.connect(self.play_button_cliked)
+        self.ui.pause_button.clicked.connect(self.pause_button_cliked)
+        self.ui.next_button.clicked.connect(self.next_button_cliked)
+        self.ui.back_button.clicked.connect(self.back_button_cliked)
         self.ui.playlist_frame.setVisible(False)
+        self.ui.play_button.setVisible(False)
+        self.ui.pause_button.setVisible(False)
+        self.ui.next_button.setVisible(False)
+        self.ui.back_button.setVisible(False)
         self.past_playlist = None
         self.past_music = None
         self.list_playlist_musics = []
@@ -84,49 +92,99 @@ class Window(QtWidgets.QMainWindow):
 
         logger.info('change playlist')
 
-    def playlist_music_label_cliked(self, music_id, QMouseEvent):
+    def playlist_music_label_cliked(self, music_id, music_author, music_name, QMouseEvent):
         if self.past_music == None:
-            self.past_music = music_id
+            self.past_music = (music_id, 'playlist')
             for i in range(len(self.list_playlist_musics)):
                 if self.list_playlist_musics[i][0] == music_id:
                     self.list_playlist_musics[i][1].setStyleSheet('color:#FF0000;')
-                    self.list_musics[i][2].setStyleSheet('color:#FF0000;')
+                    self.list_playlist_musics[i][2].setStyleSheet('color:#FF0000;')
         else:
             for i in range(len(self.list_playlist_musics)):
-                if self.list_playlist_musics[i][0] == self.past_music:
+                if self.list_playlist_musics[i][0] == self.past_music[0]:
                     self.list_playlist_musics[i][1].setStyleSheet('color:#FFFFFF;')
                     self.list_playlist_musics[i][2].setStyleSheet('color:#7D7373;')
             for i in range(len(self.list_musics)):
-                if self.list_musics[i][0] == self.past_music:
+                if self.list_musics[i][0] == self.past_music[0]:
                     self.list_musics[i][1].setStyleSheet('color:#FFFFFF;')
                     self.list_musics[i][2].setStyleSheet('color:#7D7373;')
-            self.past_music = music_id
+            self.past_music = (music_id, 'playlist')
             for i in range(len(self.list_playlist_musics)):
                 if self.list_playlist_musics[i][0] == music_id:
                     self.list_playlist_musics[i][1].setStyleSheet('color:#FF0000;')
                     self.list_playlist_musics[i][2].setStyleSheet('color:#FF0000;')
 
-    def music_label_cliked(self, music_id, QMouseEvent):
+        self.ui.name_label.setText(music_name)
+        self.ui.author_label.setText(music_author)
+        self.ui.play_button.setVisible(True)
+        self.ui.pause_button.setVisible(False)
+        self.ui.next_button.setVisible(True)
+        self.ui.back_button.setVisible(True)
+
+    def music_label_cliked(self, music_id, music_author, music_name, QMouseEvent):
         if self.past_music == None:
-            self.past_music = music_id
+            self.past_music = (music_id, 'music')
             for i in range(len(self.list_musics)):
                 if self.list_musics[i][0] == music_id:
                     self.list_musics[i][1].setStyleSheet('color:#FF0000;')
                     self.list_musics[i][2].setStyleSheet('color:#FF0000;')
         else:
             for i in range(len(self.list_musics)):
-                if self.list_musics[i][0] == self.past_music:
+                if self.list_musics[i][0] == self.past_music[0]:
                     self.list_musics[i][1].setStyleSheet('color:#FFFFFF;')
                     self.list_musics[i][2].setStyleSheet('color:#7D7373;')
             for i in range(len(self.list_playlist_musics)):
-                if self.list_playlist_musics[i][0] == self.past_music:
-                    self.list_playlist_musics[i][1].setStyleSheet('color:#FFFFFF;')
-                    self.list_playlist_musics[i][2].setStyleSheet('color:#7D7373;')
-            self.past_music = music_id
+                if self.list_playlist_musics[i][0] == self.past_music[0]:
+                    try:
+                        self.list_playlist_musics[i][1].setStyleSheet('color:#FFFFFF;')
+                        self.list_playlist_musics[i][2].setStyleSheet('color:#7D7373;')
+                    except:
+                        pass
+            self.past_music = (music_id, 'music')
             for i in range(len(self.list_musics)):
                 if self.list_musics[i][0] == music_id:
                     self.list_musics[i][1].setStyleSheet('color:#FF0000;')
                     self.list_musics[i][2].setStyleSheet('color:#FF0000;')
+
+        self.ui.name_label.setText(music_name)
+        self.ui.author_label.setText(music_author)
+        self.ui.play_button.setVisible(True)
+        self.ui.pause_button.setVisible(False)
+        self.ui.next_button.setVisible(True)
+        self.ui.back_button.setVisible(True)
+
+    def back_playlist_button_cliked(self):
+        Window.get_playlists(self)
+
+    def play_button_cliked(self):
+        self.ui.pause_button.setVisible(True)
+        self.ui.play_button.setVisible(False)
+        way = None
+
+        if self.past_music[1] == 'music':
+            for i in range(len(self.list_musics)):
+                if self.list_musics[i][0] == self.past_music[0]:
+                    way = self.list_musics[i][3]
+                    break
+        else:
+            for i in range(len(self.list_playlist_musics)):
+                if self.list_playlist_musics[i][0] == self.past_music[0]:
+                    way = self.list_playlist_musics[i][3]
+                    break
+
+        #Тут пиши код старту композиції. Змінна way має шлях, який треба запустить.
+
+    def pause_button_cliked(self):
+        self.ui.pause_button.setVisible(False)
+        self.ui.play_button.setVisible(True)
+
+        #Тут пиши код паузи.
+
+    def next_button_cliked(self):
+        pass
+
+    def back_button_cliked(self):
+        pass
 
     def get_playlists(self):
         for i in reversed(range(self.ui.playlist_frame_layout.count())): 
@@ -146,9 +204,11 @@ class Window(QtWidgets.QMainWindow):
             frame.setObjectName("frame_in_playlist")
 
             label = QtWidgets.QLabel(playlists[i][1], frame)
-            label.setGeometry(QtCore.QRect(10,2,264,36))
+            label.setGeometry(QtCore.QRect(10,2,264,38))
             label.setStyleSheet('color: #FFFFFF')
-            label.setFont(QtGui.QFont('Arial', 15))
+            font = QtGui.QFont()
+            font.setPixelSize(25)
+            label.setFont(font)
             label.mousePressEvent = partial(Window.playlist_label_cliked, self, playlist_id)
             self.list_playlists.append([playlist_id, label])
 
@@ -168,11 +228,25 @@ class Window(QtWidgets.QMainWindow):
         musics = []
         for i in range(len(musics_way)):
             music = author_photo_name_music(musics_way[i][1])
-            musics.append([musics_way[i][0], music[0], music[1]])
+            musics.append([musics_way[i][0], music[0], music[1], musics_way[i][1]])
         if frame_for_music == 'playlist':
             self.list_playlist_musics = []
         else:
             self.list_musics = []
+
+        if frame_for_music == 'playlist':
+            self.back_playlist_button = QtWidgets.QPushButton(self.ui.music_widget)
+            self.back_playlist_button.setMaximumSize(QtCore.QSize(25, 25))
+            self.back_playlist_button.setMinimumSize(QtCore.QSize(25, 25))
+            self.back_playlist_button.setText("")
+            icon = QtGui.QIcon()
+            icon.addPixmap(QtGui.QPixmap("image/back-arrow.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            self.back_playlist_button.setIcon(icon)
+            self.back_playlist_button.setIconSize(QtCore.QSize(25, 25))
+            self.back_playlist_button.setObjectName("back_playlist_button")
+
+            self.back_playlist_button.clicked.connect(self.back_playlist_button_cliked)
+            layout.addWidget(self.back_playlist_button)
 
         for i in range(len(musics)):
             frame = QtWidgets.QFrame(self.ui.music_widget)
@@ -185,26 +259,30 @@ class Window(QtWidgets.QMainWindow):
             label = QtWidgets.QLabel(musics[i][2], frame)
             label.setGeometry(QtCore.QRect(10,2,264,28))
             label.setStyleSheet('color: #FFFFFF')
-            label.setFont(QtGui.QFont('Arial', 15))
+            font = QtGui.QFont()
+            font.setPointSize(15)
+            label.setFont(font)
             if frame_for_music == 'playlist':
-                label.mousePressEvent = partial(Window.playlist_music_label_cliked, self, musics[i][0])
+                label.mousePressEvent = partial(Window.playlist_music_label_cliked, self, musics[i][0], musics[i][1], musics[i][2])
             else:
-                label.mousePressEvent = partial(Window.music_label_cliked, self, musics[i][0])
+                label.mousePressEvent = partial(Window.music_label_cliked, self, musics[i][0], musics[i][1], musics[i][2])
 
             label_author = QtWidgets.QLabel(musics[i][1], frame)
             label_author.setGeometry(QtCore.QRect(10,30,264,20))
             label_author.setStyleSheet('color: #7D7373')
-            label_author.setFont(QtGui.QFont('Arial', 12))
+            font = QtGui.QFont()
+            font.setPointSize(12)
+            label_author.setFont(font)
             label_author.setAlignment(QtCore.Qt.AlignTop)
             if frame_for_music == 'playlist':
-                label.mousePressEvent = partial(Window.playlist_music_label_cliked, self, musics[i][0])
+                label.mousePressEvent = partial(Window.playlist_music_label_cliked, self, musics[i][0], musics[i][1], musics[i][2])
             else:
-                label.mousePressEvent = partial(Window.music_label_cliked, self, musics[i][0])
+                label.mousePressEvent = partial(Window.music_label_cliked, self, musics[i][0], musics[i][1], musics[i][2])
 
             if frame_for_music == 'playlist':
-                self.list_playlist_musics.append([musics[i][0], label, label_author])
+                self.list_playlist_musics.append([musics[i][0], label, label_author, musics[i][3]])
             else:
-                self.list_musics.append([musics[i][0], label, label_author])
+                self.list_musics.append([musics[i][0], label, label_author, musics[i][3]])
 
             layout.addWidget(frame)
 
