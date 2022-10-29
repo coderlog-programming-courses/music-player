@@ -1,18 +1,25 @@
+from ast import If
 import os
 from db_worker import does_file_exist_db
 from mutagen.mp3 import EasyMP3
+import eyed3
+
+
+
 
 
 def author_photo_name_music(way):
     # Робить функцію яка виводить обложку музики, ім'я автора та ім'я музики
-    music = os.path.basename(way)
-    dash = music.find('-')
-    music_author = music[:dash]
-    music_name = music[dash + 2:]
-    music_name = music_name.replace('.mp3', '')
-    return (music_author, music_name)
+    audiofile = eyed3.load(way)
+    if None == audiofile.tag.artist:
+        return ["Невідомий виконавець"]
+    else:
+        return [audiofile.tag.artist, audiofile.tag.title]
+    
+    
+    
 
-
+print(author_photo_name_music('/home/sasha/Музыка/Milana Star & Vitamin T - Сладкоежка.mp3'))
 def does_file_exist():
     # Робить функцію яка виводить список музик якіх не існує
     absent_music = []
