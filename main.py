@@ -7,6 +7,7 @@ from cover_art_music_author import author_photo_name_music
 from window import Ui_MainWindow
 from loguru import logger
 from functools import partial
+from start_music import play_music, pause_music
 
 
 logger.add('logs/player.log', format='{time} {level} {message}', rotation="10MB")
@@ -172,13 +173,13 @@ class Window(QtWidgets.QMainWindow):
                     way = self.list_playlist_musics[i][3]
                     break
 
-        #Тут пиши код старту композиції. Змінна way має шлях, який треба запустить.
+        play_music(way)
 
     def pause_button_cliked(self):
         self.ui.pause_button.setVisible(False)
         self.ui.play_button.setVisible(True)
 
-        #Тут пиши код паузи.
+        pause_music()
 
     def next_button_cliked(self):
         pass
