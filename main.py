@@ -7,7 +7,7 @@ from cover_art_music_author import author_photo_name_music
 from window import Ui_MainWindow
 from loguru import logger
 from functools import partial
-from start_music import play_music, pause_music
+from start_music import play_music, pause_music, unpause_music
 
 
 logger.add('logs/player.log', format='{time} {level} {message}', rotation="10MB")
@@ -27,11 +27,13 @@ class Window(QtWidgets.QMainWindow):
         self.ui.playlist_button.clicked.connect(self.playlist_button_cliked)
         self.ui.play_button.clicked.connect(self.play_button_cliked)
         self.ui.pause_button.clicked.connect(self.pause_button_cliked)
+        self.ui.unpause_button.clicked.connect(self.unpause_button_cliked)
         self.ui.next_button.clicked.connect(self.next_button_cliked)
         self.ui.back_button.clicked.connect(self.back_button_cliked)
         self.ui.playlist_frame.setVisible(False)
         self.ui.play_button.setVisible(False)
         self.ui.pause_button.setVisible(False)
+        self.ui.unpause_button.setVisible(False)
         self.ui.next_button.setVisible(False)
         self.ui.back_button.setVisible(False)
         self.past_playlist = None
@@ -119,6 +121,7 @@ class Window(QtWidgets.QMainWindow):
         self.ui.author_label.setText(music_author)
         self.ui.play_button.setVisible(True)
         self.ui.pause_button.setVisible(False)
+        self.ui.unpause_button.setVisible(False)
         self.ui.next_button.setVisible(True)
         self.ui.back_button.setVisible(True)
 
@@ -151,6 +154,7 @@ class Window(QtWidgets.QMainWindow):
         self.ui.author_label.setText(music_author)
         self.ui.play_button.setVisible(True)
         self.ui.pause_button.setVisible(False)
+        self.ui.unpause_button.setVisible(False)
         self.ui.next_button.setVisible(True)
         self.ui.back_button.setVisible(True)
 
@@ -177,9 +181,15 @@ class Window(QtWidgets.QMainWindow):
 
     def pause_button_cliked(self):
         self.ui.pause_button.setVisible(False)
-        self.ui.play_button.setVisible(True)
+        self.ui.unpause_button.setVisible(True)
 
         pause_music()
+
+    def unpause_button_cliked(self):
+        self.ui.unpause_button.setVisible(False)
+        self.ui.pause_button.setVisible(True)
+
+        unpause_music()
 
     def next_button_cliked(self):
         pass
