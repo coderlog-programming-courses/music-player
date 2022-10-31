@@ -96,13 +96,24 @@ class Window(QtWidgets.QMainWindow):
         logger.info('change playlist')
 
     def playlist_music_label_cliked(self, music_id, music_author, music_name, QMouseEvent):
+        self.ui.play_button.setVisible(True)
+        self.ui.unpause_button.setVisible(False)
         if self.past_music == None:
-            self.past_music = (music_id, 'playlist')
+            self.past_music = [music_id, 'playlist', None, None, None]
             for i in range(len(self.list_playlist_musics)):
                 if self.list_playlist_musics[i][0] == music_id:
                     self.list_playlist_musics[i][1].setStyleSheet('color:#FF0000;')
                     self.list_playlist_musics[i][2].setStyleSheet('color:#FF0000;')
         else:
+            if self.past_music[3] == 'playlist' and self.past_music[2] == music_id and self.past_music[4] == 'play':
+                self.ui.play_button.setVisible(False)
+                self.ui.pause_button.setVisible(True)
+            elif self.past_music[3] == 'playlist' and self.past_music[2] == music_id and self.past_music[4] == 'pause':
+                self.ui.play_button.setVisible(False)
+                self.ui.pause_button.setVisible(False)
+                self.ui.unpause_button.setVisible(True)
+            else:
+                self.ui.pause_button.setVisible(False)
             for i in range(len(self.list_playlist_musics)):
                 if self.list_playlist_musics[i][0] == self.past_music[0]:
                     self.list_playlist_musics[i][1].setStyleSheet('color:#FFFFFF;')
@@ -111,7 +122,7 @@ class Window(QtWidgets.QMainWindow):
                 if self.list_musics[i][0] == self.past_music[0]:
                     self.list_musics[i][1].setStyleSheet('color:#FFFFFF;')
                     self.list_musics[i][2].setStyleSheet('color:#7D7373;')
-            self.past_music = (music_id, 'playlist')
+            self.past_music = [music_id, 'playlist', self.past_music[2], self.past_music[3], self.past_music[4]]
             for i in range(len(self.list_playlist_musics)):
                 if self.list_playlist_musics[i][0] == music_id:
                     self.list_playlist_musics[i][1].setStyleSheet('color:#FF0000;')
@@ -119,20 +130,28 @@ class Window(QtWidgets.QMainWindow):
 
         self.ui.name_label.setText(music_name)
         self.ui.author_label.setText(music_author)
-        self.ui.play_button.setVisible(True)
-        self.ui.pause_button.setVisible(False)
-        self.ui.unpause_button.setVisible(False)
         self.ui.next_button.setVisible(True)
         self.ui.back_button.setVisible(True)
 
     def music_label_cliked(self, music_id, music_author, music_name, QMouseEvent):
+        self.ui.play_button.setVisible(True)
+        self.ui.unpause_button.setVisible(False)
         if self.past_music == None:
-            self.past_music = (music_id, 'music')
+            self.past_music = [music_id, 'music', None, None, None]
             for i in range(len(self.list_musics)):
                 if self.list_musics[i][0] == music_id:
                     self.list_musics[i][1].setStyleSheet('color:#FF0000;')
                     self.list_musics[i][2].setStyleSheet('color:#FF0000;')
         else:
+            if self.past_music[3] == 'music' and self.past_music[2] == music_id and self.past_music[4] == 'play':
+                self.ui.play_button.setVisible(False)
+                self.ui.pause_button.setVisible(True)
+            elif self.past_music[3] == 'music' and self.past_music[2] == music_id and self.past_music[4] == 'pause':
+                self.ui.play_button.setVisible(False)
+                self.ui.pause_button.setVisible(False)
+                self.ui.unpause_button.setVisible(True)
+            else:
+                self.ui.pause_button.setVisible(False)
             for i in range(len(self.list_musics)):
                 if self.list_musics[i][0] == self.past_music[0]:
                     self.list_musics[i][1].setStyleSheet('color:#FFFFFF;')
@@ -144,7 +163,7 @@ class Window(QtWidgets.QMainWindow):
                         self.list_playlist_musics[i][2].setStyleSheet('color:#7D7373;')
                     except:
                         pass
-            self.past_music = (music_id, 'music')
+            self.past_music = [music_id, 'music', self.past_music[2], self.past_music[3], self.past_music[4]]
             for i in range(len(self.list_musics)):
                 if self.list_musics[i][0] == music_id:
                     self.list_musics[i][1].setStyleSheet('color:#FF0000;')
@@ -152,9 +171,6 @@ class Window(QtWidgets.QMainWindow):
 
         self.ui.name_label.setText(music_name)
         self.ui.author_label.setText(music_author)
-        self.ui.play_button.setVisible(True)
-        self.ui.pause_button.setVisible(False)
-        self.ui.unpause_button.setVisible(False)
         self.ui.next_button.setVisible(True)
         self.ui.back_button.setVisible(True)
 
@@ -164,6 +180,9 @@ class Window(QtWidgets.QMainWindow):
     def play_button_cliked(self):
         self.ui.pause_button.setVisible(True)
         self.ui.play_button.setVisible(False)
+        self.past_music[2] = self.past_music[0]
+        self.past_music[3] = self.past_music[1]
+        self.past_music[4] = 'play'
         way = None
 
         if self.past_music[1] == 'music':
@@ -182,12 +201,14 @@ class Window(QtWidgets.QMainWindow):
     def pause_button_cliked(self):
         self.ui.pause_button.setVisible(False)
         self.ui.unpause_button.setVisible(True)
+        self.past_music[4] = 'pause'
 
         pause_music()
 
     def unpause_button_cliked(self):
         self.ui.unpause_button.setVisible(False)
         self.ui.pause_button.setVisible(True)
+        self.past_music[4] = 'play'
 
         unpause_music()
 
