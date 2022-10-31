@@ -1,11 +1,5 @@
-from ast import If
-import os
 from db_worker import does_file_exist_db
-from mutagen.mp3 import EasyMP3
-import eyed3
-
-
-
+import eyed3, os
 
 
 def author_photo_name_music(way):
@@ -14,12 +8,12 @@ def author_photo_name_music(way):
     if None == audiofile.tag.artist:
         return ["Невідомий виконавець"]
     else:
-        return [audiofile.tag.artist, audiofile.tag.title]
+        return [audiofile.tag.artist, audiofile.tag.title, ]
     
     
     
 
-print(author_photo_name_music('/home/sasha/Музыка/Milana Star & Vitamin T - Сладкоежка.mp3'))
+print(author_photo_name_music('/home/sasha/Музыка/nurminskiy_-_zashumel-rayon.mp3'))
 def does_file_exist():
     # Робить функцію яка виводить список музик якіх не існує
     absent_music = []
