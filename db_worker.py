@@ -5,8 +5,8 @@ logger.add("logs/player.log", format="{time} | {level} | {message}", rotation="1
 
 
 
-def create_datebase():
-    connection = sqlite3.connect('db.bin')
+def create_datebase(path):
+    connection = sqlite3.connect(path)
     cursor = connection.cursor()
 
     #Створити таблицю playlistsю

@@ -1,5 +1,5 @@
 from email.mime import application
-import os.path, sys
+import os, sys
 from PyQt5 import QtWidgets, QtCore, QtGui
 from db_worker import create_datebase, output_all_playlists
 from playlist import playlist_output_form_letter
@@ -9,12 +9,22 @@ from loguru import logger
 from functools import partial
 from start_music import play_music, pause_music, unpause_music
 
-
 logger.add('logs/player.log', format='{time} {level} {message}', rotation="10MB")
 
 
-if os.path.exists('db.bin') != True: #Якщо файлу бази данних немає у папці
-    create_datebase() #Запустить функцію, що створить його.
+if sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'darwin':
+    home = os.path.expanduser("~")
+    if os.path.exists('%s/.player' % (home)) != True:
+        os.mkdir('%s/%s' % (home, '.player'))
+    if os.path.exists('%s/.player/db.bin' % (home)) != True:
+        create_datebase(home + '/.player/db.bin')
+elif sys.platform == 'win32' or sys.platform == 'cygwin':
+    home = os.path.expanduser("~")
+    if os.path.exists('%s\player' % (home)) != True:
+        os.mkdir('%s\%s' % (home, 'player'))
+    if os.path.exists('%s\player\db.bin' % (home)) != True:
+        create_datebase(home + '\player\db.bin')
+else: sys.exit()
 
 
 class Window(QtWidgets.QMainWindow):
